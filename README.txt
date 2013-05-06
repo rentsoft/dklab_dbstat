@@ -6,8 +6,8 @@ ABSTRACT
 --------
 
 Dklab dbstat is a web tool which allows you to collect any statistical
-information about your project and manipulate it in real-time. Samples
-of such statistic for e.g. a simple forum-based project:
+information about your project and manipulate it in real-time. Below are 
+samples of such statistic for e.g. a simple forum-based project:
 
   - number of accounts registered at your project per day, week, month, 
     quarter or total;
@@ -18,7 +18,7 @@ of such statistic for e.g. a simple forum-based project:
   - average number of posts per topic per day, ...;
   - ...and other information which you could need to know about your forum.
 
-This may looks like the following:
+This may look like the following:
   
                    | TOT   | AVG | Sun  Sat  Fri  Thu  Wed  Tue  Mon  Sun 
 -------------------+-------+-----+---------------------------------------
@@ -31,7 +31,7 @@ Posts created      | 78722 | 591 | 610  730  641  402  360  722  211  610
 You may add such statistical items to the system, remove them, organize 
 into groups, mark with tags, preview, recalculate on demand (e.g. to fix
 bugs in queries), edit etc. in 1-2 clicks using simple SQL queries. This 
-is kind of a very simple OLAP system.
+is a kind of very simple OLAP system.
 
 
 THE MAIN DBSTAT ADVANTAGE - ITS SIMPLICITY
