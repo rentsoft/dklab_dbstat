@@ -32,7 +32,7 @@ function getValuesOfRows(trs) {
 		col.push($headTd.html().replace(/<.*?>/g, ' '));
 		$.each(setOfTdsList, function() {
 			var $td = $(this[i]);
-			var value = ($td.attr("value")||"").replace(/[^0-9.]+/g, '');
+			var value = ($td.attr("value")||"");
 			if (!value.length || $td.hasClass('incomplete')) value = null;
 			else value = parseFloat(value);
 			col.push(value);

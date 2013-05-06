@@ -959,5 +959,5 @@ function makeCommonPrefixTransparent($prev, $cur, $delim, $style)
 
 function extractNumeric($s)
 {
-    return preg_replace('/[^-\d.]+/', '', $s);
+    return preg_replace('/[^-\d.]+/', '', trim($s));
 }

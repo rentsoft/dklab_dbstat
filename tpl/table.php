@@ -60,7 +60,7 @@
 						<td 
 							<?=$styles? 'style="' . join(";", $styles) . '"' : ''?> 
 							<?=!$cell['is_complete']? 'class="incomplete" title="Incomplete; till ' . date("Y-m-d H:i:s", $cell['created']) . ' only"' : ""?>
-							value="<?=preg_replace('/[^0-9.]+/s', '', trim($cell['value']))?>"
+							value="<?=extractNumeric($cell['value'])?>"
 						>
 							<?=$cell['value']?>
 							<?if (strlen($cell['percent'])) {?>
