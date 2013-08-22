@@ -1,38 +1,52 @@
 <?php
 //
 // Command-line usage:
-//   php sendmail_with_recalc.php ['reName']
+//   php sendmail_with_recalc.php ['reName'] ['custom@email']
 //
 
 chdir(dirname(__FILE__));
 
-$phpBin = (isset($_SERVER['_']) && strpos($_SERVER['_'], 'sendmail') === false)? $_SERVER['_'] : "php";
 
-$re = @$_SERVER['argv'][1]? $_SERVER['argv'][1] : null;
+function getArgv($i) {
+	return @$_SERVER['argv'][$i]? $_SERVER['argv'][$i] : null;
+}
+$re = getArgv(1);
+$email = getArgv(2);
 $time = time();
 
+function execute($what) {
+	$phpBin = (isset($_SERVER['_']) && strpos($_SERVER['_'], 'sendmail') === false)? $_SERVER['_'] : "php";
+	$args = array();
+	foreach (array_slice(func_get_args(), 1) as $arg) {
+		if ($arg) $args[] = escapeshellarg($arg);
+	}
+	$cmd = "$phpBin $what.php " . join(" ", $args);
+	return system($cmd);
+}
+
 echo "Recalculating previous day values...\n";
-system("$phpBin recalc.php");
+execute('recalc');
 
 echo "Sending daily report...\n";
-system("$phpBin sendmail.php day " . escapeshellarg($re));
+
+execute('sendmail', 'day', $re, $email);
 
 $sentMonthly = false;
 if (date('w', $time) == 1) { 
 	// Monday morning: send weekly & monthly report
 	echo "Sending weekly report...\n";
-	system("$phpBin sendmail.php week " . escapeshellarg($re));
+	execute('sendmail', 'week', $re, $email);
 	echo "Sending monthly report...\n";
-	system("$phpBin sendmail.php month " . escapeshellarg($re));
+	execute('sendmail', 'month', $re, $email);
 	$sentMonthly = true;
 }
 
 if (date('d', $time) == 1 && !$sentMonthly) {
 	echo "Sending monthly report...\n";
-	system("$phpBin sendmail.php month " . escapeshellarg($re));
+	execute('sendmail', 'month', $re, $email);
 }
 
 if (date('d', $time) == 1) {
 	echo "Sending quarterly report...\n";
-	system("$phpBin sendmail.php quarter " . escapeshellarg($re));
+	execute('sendmail', 'quarter', $re, $email);
 }
