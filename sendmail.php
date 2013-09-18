@@ -74,7 +74,7 @@ foreach (preg_split('/\s*,\s*/s', $emails) as $email) {
 	$mail = preg_replace('{(?=<tr)|(?<=/tr>)}s', "\n", $mail);
 	if ($customEmail) {
 		// remove links to dbstat web frontend while sending to custom email
-		$mail = preg_replace('{<a\b[^>]+>([^<]*(?:(?!</a)<[^<]*)*)</a>}', "$1", $mail);
+		$mail = preg_replace('{<a\s[^>]+>([^<]*(?:(?!</a)<[^<]*)*)</a>}', "$1", $mail);
 	}
 	Mail_Simple::mail($mail);
 }
