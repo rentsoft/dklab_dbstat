@@ -1,7 +1,7 @@
 <?php
 //
 // Command-line usage:
-//   php sendmail_with_recalc.php ['reName'] ['custom@email']
+//   php sendmail_with_recalc.php ['reName'] ['custom@email'] ['skipRecalc']
 //
 
 chdir(dirname(__FILE__));
@@ -12,6 +12,9 @@ function getArgv($i) {
 }
 $re = getArgv(1);
 $email = getArgv(2);
+// allow user to skip recalc if he just want to use "aggregated sendmail" feature of this script
+// todo: refactor a bit to separate aggregated sendmail feature
+$skipRecalc = getArgv(3);
 $time = time();
 
 function execute($what) {
@@ -24,8 +27,10 @@ function execute($what) {
 	return system($cmd);
 }
 
-echo "Recalculating previous day values...\n";
-execute('recalc');
+if (!$skipRecalc) {
+	echo "Recalculating previous day values...\n";
+	execute('recalc');
+}
 
 echo "Sending daily report...\n";
 
