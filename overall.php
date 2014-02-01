@@ -8,7 +8,7 @@ require_once "PDO/Simple.php";
 require_once "Tools/TimeSeriesAxis.php";
 
 define("TAGS_SEP", "|");
-define("PREVIEW_TABLES_COLS", 40);
+define("PREVIEW_TABLES_COLS", 63);
 
 // Initialize environment.
 if (isCgi() && defined("USE_GZIP")) {
@@ -19,7 +19,9 @@ if (isCgi()) {
 	header("Content-Type: text/html; charset=utf-8");
 }
 
-session_start();
+if (!@session_id()) {
+    session_start();
+}
 $DB_BY_DSN = array();
 $DB = createDbConnection();
 
