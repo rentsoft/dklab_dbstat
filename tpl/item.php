@@ -48,6 +48,11 @@
 		<td class="comment">Separate tags with space.</td>
 	</tr>
 	<tr valign="top">
+		<td class="caption">Comment</td>
+		<td><input type="text" name="item[comment]" size="60" style="width:100%"/></td>
+		<td class="comment">Optional comment.</td>
+	</tr>
+	<tr valign="top">
 		<td class="caption">SQL</td>
 		<td>
 			<textarea id="sql" name="item[sql]" cols="80" rows="8" style="width:100%"></textarea>

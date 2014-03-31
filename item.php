@@ -22,13 +22,13 @@ if (!empty($_POST['doClear'])) {
 		$item = validateItem($_POST['item']);
 		if (!$id) {
 			$DB->update(
-				'INSERT INTO item(id, name, "sql", dsn_id, recalculatable, archived, dim, tags, created, modified, relative_to) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-				$id = $DB->getSeq(), $item['name'], $item['sql'], $item['dsn_id'], $item['recalculatable'], $item['archived'], $item['dim'], $item['tags'], time(), time(), $item['relative_to']
+				'INSERT INTO item(id, name, "sql", dsn_id, recalculatable, archived, dim, tags, created, modified, relative_to, comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+				$id = $DB->getSeq(), $item['name'], $item['sql'], $item['dsn_id'], $item['recalculatable'], $item['archived'], $item['dim'], $item['tags'], time(), time(), $item['relative_to'], $item['comment']
 			);
  		} else {
 			$DB->update(
-				'UPDATE item SET name=?, "sql"=?, dsn_id=?, recalculatable=?, archived=?, dim=?, tags=?, modified=?, relative_to=? WHERE id=?',
-				$item['name'], $item['sql'], $item['dsn_id'], $item['recalculatable'], $item['archived'], $item['dim'], $item['tags'], time(), $item['relative_to'], $id
+				'UPDATE item SET name=?, "sql"=?, dsn_id=?, recalculatable=?, archived=?, dim=?, tags=?, modified=?, relative_to=?, comment=? WHERE id=?',
+				$item['name'], $item['sql'], $item['dsn_id'], $item['recalculatable'], $item['archived'], $item['dim'], $item['tags'], time(), $item['relative_to'], $item['comment'], $id
 			);
  		}
  		if (!empty($_POST['doSave'])) {

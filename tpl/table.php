@@ -30,17 +30,22 @@
 		<?foreach ($group as $rowName => $row) { $n++; ?>
 		    <?$prevCaption = $caption?>
 		    <?$caption = (strlen($groupName)? $groupName . "/" : "") . (strlen($rowName)? $rowName : "&lt;none&gt;")?>
-			<tr 
+			<tr
 				id="<?=$row['item_id']?>"
 				<?=$row['archived']? 'style="display:none" class="archived id' . $row['item_id'] . '"' : ''?> 
 				<?=$row['relative_name']? 'title="Relative to ' . $row['relative_name'] . '"' : ""?> 
 				align="center" valign="middle" bgcolor="<?=$zebra[$n % 2]?>">
-        		<td><font color="#AAA"><?=$n?></font></td>
-				<td nowrap="nowrap" align="left">
-					<?if (@$_SERVER['GATEWAY_INTERFACE']) {?>
-						<a href="<?=$base?>item.php?clone=<?=$row['item_id']?><?=isCgi()?'&retpath='.urlencode($_SERVER['REQUEST_URI']):''?>" title="Clone this item"><img src="<?=$base?>static/clone.gif" width="10" height="10" border="0" /></a>&nbsp;
-					<?}?>
-					<b><a style="text-decoration:none" href="<?=$base?>item.php?id=<?=$row['item_id']?><?=isCgi()?'&retpath='.urlencode($_SERVER['REQUEST_URI']):''?>"><?=$hideCommonPrefix? makeCommonPrefixTransparent($prevCaption, $caption, '/', 'color:#f5f5f5') : $caption?></a></b>&nbsp;
+				<td><font color="#AAA"><?=$n?></font></td>
+				<td align="left">
+					<?if (strlen($row['comment'])) {?>
+						<div style="font-size:70%; color:#AAA; <?=isCgi()? 'padding-left:15px' : 0?>"><?=nl2br(str_replace('\\n', "\n", $row['comment']))?>
+					</div><?}?>
+					<div style="white-space:nowrap">
+						<?if (isCgi()) {?>
+							<a href="<?=$base?>item.php?clone=<?=$row['item_id']?>&retpath=<?=urlencode($_SERVER['REQUEST_URI'])?>" title="Clone this item"><img src="<?=$base?>static/clone.gif" width="10" height="10" border="0" style="margin-right:5px"/></a>
+						<?}?>
+						<b><a style="text-decoration:none" href="<?=$base?>item.php?id=<?=$row['item_id']?><?=isCgi()?'&retpath='.urlencode($_SERVER['REQUEST_URI']):''?>"><?=$hideCommonPrefix? makeCommonPrefixTransparent($prevCaption, $caption, '/', 'color:#f5f5f5') : $caption?></a></b>&nbsp;
+					</div>
 				</td>
 				<td><?=$row['total']?></td>
 				<td><?=$row['average']?></td>

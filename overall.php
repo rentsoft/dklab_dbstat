@@ -80,6 +80,7 @@ function createDbConnection()
 			try {
 				$DB->beginTransaction();
 				foreach (explode(";", $sql) as $cmd) {
+					if (!trim($cmd)) continue;
 					$DB->exec(trim($cmd));
 				}
 				$DB->update('UPDATE "version" SET "version"=?', intval($m[1]));
@@ -257,7 +258,7 @@ function generateTableData($to, $back, $period, $onlyItemIds = null, $onlyDataNa
 	$t0 = microtime(true);
 	$cells = $DB->select('
 			SELECT
-				item.name, item.id AS item_id, item.archived AS archived,
+				item.name, item.id AS item_id, item.archived AS archived, item.comment AS comment,
 				c.id AS data_id, c.value, c.created, c.name AS data_name,
 				t.value AS total,
 				r.value AS relative_value,
@@ -301,7 +302,7 @@ function generateTableData($to, $back, $period, $onlyItemIds = null, $onlyDataNa
 	foreach ($cells as $i => $cell) {
 		$name = $cell['name'];
 		if ($cell['data_name']) {
-            // Insert data name at the end of string and berore each ";" (for multi-named items).
+            // Insert data name at the end of string and before each ";" (for multi-named items).
 			$name = preg_replace('/(?=;)|$/s', "/" . $cell['data_name'], trim($name));
 		}
 		if (!isset($names[$name])) {
@@ -373,6 +374,7 @@ function generateTableData($to, $back, $period, $onlyItemIds = null, $onlyDataNa
 	$table = array();
 	$captions = array();
 	$hasFirstColumn = false;
+	$prevItemId = null;
 	foreach ($names as $name => $cells) {
 		// Create a new row in the table.
 		$group = "";
@@ -388,10 +390,12 @@ function generateTableData($to, $back, $period, $onlyItemIds = null, $onlyDataNa
 			"average"       => 0,
 			"average_filled"=> 0,
 			"relative_name" => null,
-			"item_id"       => @$cell['item_id'],
-			"archived"      => @$cell['archived'],
+			"item_id"       => $cell['item_id'],
+			"archived"      => $cell['archived'],
+			"comment"       => $prevItemId != $cell['item_id']? $cell['comment'] : '',
 			"cells"         => array(),
 		);
+		$prevItemId = $cell['item_id'];
 		$rr =& $table[$group][$name];
 
 		// Calculate columns.
