@@ -44,7 +44,7 @@
 						<?if (isCgi()) {?>
 							<a href="<?=$base?>item.php?clone=<?=$row['item_id']?>&retpath=<?=urlencode($_SERVER['REQUEST_URI'])?>" title="Clone this item"><img src="<?=$base?>static/clone.gif" width="10" height="10" border="0" style="margin-right:5px"/></a>
 						<?}?>
-						<b><a style="text-decoration:none" href="<?=$base?>item.php?id=<?=$row['item_id']?><?=isCgi()?'&retpath='.urlencode($_SERVER['REQUEST_URI']):''?>"><?=$hideCommonPrefix? makeCommonPrefixTransparent($prevCaption, $caption, '/', 'color:#f5f5f5') : $caption?></a></b>&nbsp;
+						<b><a style="text-decoration:none" href="<?=$base?>item.php?id=<?=$row['item_id']?><?=isCgi()?'&retpath='.urlencode($_SERVER['REQUEST_URI']):''?>"><?=$hideCommonPrefix? makeCommonPrefixTransparent($prevCaption, $caption, '/', 'color:#AAA') : $caption?></a></b>&nbsp;
 					</div>
 				</td>
 				<td><?=$row['total']?></td>
