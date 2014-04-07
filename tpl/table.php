@@ -38,8 +38,8 @@
 				<td><font color="#AAA"><?=$n?></font></td>
 				<td align="left">
 					<?if (strlen($row['comment'])) {?>
-						<div style="font-size:70%; color:#AAA; <?=isCgi()? 'padding-left:15px' : 0?>"><?=nl2br(str_replace('\\n', "\n", $row['comment']))?>
-					</div><?}?>
+						<div><span style="font-size:70%; color:#AAA; <?=isCgi()? 'padding-left:15px' : ''?>"><?=nl2br(str_replace('\\n', "\n", $row['comment']))?></span></div>
+					<?}?>
 					<div style="white-space:nowrap">
 						<?if (isCgi()) {?>
 							<a href="<?=$base?>item.php?clone=<?=$row['item_id']?>&retpath=<?=urlencode($_SERVER['REQUEST_URI'])?>" title="Clone this item"><img src="<?=$base?>static/clone.gif" width="10" height="10" border="0" style="margin-right:5px"/></a>
