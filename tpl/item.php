@@ -100,8 +100,17 @@
 
 <?if ($tables) {?>
 	<br/>
-	<?foreach ($tables as $tableName => $tableHtml) {?>
-		<h2><?=$tableName?> period last calculated values</h2>
-		<?=unhtmlspecialchars($tableHtml)?>
+	<?foreach ($tables as $tableName => $info) {?>
+		<div>
+			<h2 style="display:inline-block">
+				<?=$tableName?> period last calculated values
+			</h2>
+			<span style="padding-left:6em">
+				Export as CSV:
+				<a href="export.php?tag=<?=$_POST['item']['id']?>&amp;period=<?=$info['period']?>">this period</a>,
+				<a href="export.php?tag=<?=$_POST['item']['id']?>">all periods</a>
+			</span>
+		</div>
+		<?=unhtmlspecialchars($info['html'])?>
 	<?}?>
 <?}?>

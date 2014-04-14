@@ -45,7 +45,10 @@ if (!empty($_POST['doClear'])) {
 					recalcItemRow($id, $to, $back, $period);
 					$data = generateTableData($to + 1, $back, $period, $id);
 					$periods = getPeriods();
-					$tables[$periods[$period]] = generateHtmlTableFromData($data, true);
+					$tables[$periods[$period]] = array(
+						'period' => $period,
+						'html'   => generateHtmlTableFromData($data, true)
+					);
 				}
 				echo $hideLogJs;
 			} catch (Exception $e) {
@@ -96,7 +99,10 @@ if (!$tables && $id) {
 	if (!$to) $to = time();
 	foreach ($SELECT_PERIODS as $period => $periodName) {
 		$data = generateTableData($to, PREVIEW_TABLES_COLS, $period, $id);
-		$tables[$periodName] = generateHtmlTableFromData($data, true);
+		$tables[$periodName] = array(
+			'period' => $period,
+			'html' => generateHtmlTableFromData($data, true)
+		);
 	}
 }
 
@@ -105,11 +111,11 @@ $title = $id
 	  '&nbsp;<a href="item.php?clone=' . htmlspecialchars($id) . '" title="Clone this item"><img src="static/clone.gif" width="10" height="10" border="0" /></a>'
 	: "Add a new item";
 template(
-	"item", 
+	"item",
 	array(
 		"titleHtml"  => $title,
 		"title" => strip_tags($title),
 		"tables" => $tables,
 		"canAjaxTestSql" => canAjaxTestSql(),
-	)              
+	)
 );
