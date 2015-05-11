@@ -85,7 +85,7 @@ class HTML_FormPersister extends HTML_SemiParser
      * @param string $html  Input HTML text.
      * @return processed output with all form fields modified.
      */
-    function ob_formPersisterHandler($st)
+    static function ob_formPersisterHandler($st)
     {
         $fp =& new HTML_FormPersister();
         $r = $fp->process($st);
