@@ -63,7 +63,7 @@ foreach (preg_split('/\s*,\s*/s', $emails) as $email) {
 		array(
 			"title" => ($name? $name . ": " : "") . $SELECT_PERIODS[$period] . " stats: " . preg_replace('/\s+/s', ' ', $firstCaption['caption']) . " [" . date("Y-m-d", $firstCaption['to']) . "]",
 			"to" => $email,
-			"replyto" => ($replyTo? $replyTo : ($from? $from : $emailNoReply)),
+			"replyto" => ($replyTo? $replyTo : ($emailFrom? $emailFrom : $emailNoReply)),
 			"from" => ($emailFrom? $emailFrom : ($replyTo? $replyTo : $emailNoReply)),
 			"url" => $url . "?to=" . date("Y-m-d", $to) . "&period=" . $period,
 			"htmlTable" => $html,
