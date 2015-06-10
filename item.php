@@ -5,7 +5,8 @@ require_once "overall.php";
 $tables = null;
 $id = @$_GET['id']? @$_GET['id'] : @$_POST['item']['id'];
 
-$retpath = isset($_GET['retpath'])? $_GET['retpath'] : 'index.php';
+$tag = getSetting('tagafterlogin', "");
+$retpath = isset($_GET['retpath'])? $_GET['retpath'] : 'index.php' . ($tag ? '?tag=' . urlencode($tag) : '');
 
 if (!empty($_POST['doDelete'])) {
 	$DB->update("DELETE FROM item WHERE id=?", $id);
