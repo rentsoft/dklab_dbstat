@@ -17,7 +17,10 @@ class PDO_Simple extends PDO
 			$dsn = str_replace($m[0], '', $dsn);
 		}
 		$dsn = rtrim(preg_replace('/\s*;[;\s]*/', ';', $dsn), ';');
-		parent::__construct($dsn, $user, $pass);
+		parent::__construct($dsn, $user, $pass, array(
+			PDO::ATTR_TIMEOUT => 600,
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+		));
 		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
