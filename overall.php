@@ -728,6 +728,7 @@ function recalcItemCell($item, $interval)
 		// Run the calculation.
 		$t0 = microtime(true); // refresh $t0 excluding connect time
 		$sql = replaceMacrosInSql($item['sql'], $interval);
+		$db->select("SET statement_timeout TO 1800000");
 		$rowset = $db->select($sql);
 
 		// Parse single or column-returning result.
